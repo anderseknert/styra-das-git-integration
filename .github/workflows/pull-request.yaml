@@ -1,0 +1,21 @@
+name: PR Check
+
+on: [push] # pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Download Styra CLI
+        run: |
+          curl -H "Authorization: Bearer ${STYRA_API_TOKEN}" -o /usr/local/bin/styra "${STYRA_CLI_URL}"
+          chmod +x /usr/local/bin/styra
+        env:
+          STYRA_API_TOKEN: ${{ secrets.STYRA_API_TOKEN }}
+          STYRA_CLI_URL: https://anders.svc.styra.com/v1/docs/bin/linux/amd64/styra
+
+      # # - name: Run tests
+      # #   run: 
