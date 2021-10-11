@@ -1,6 +1,6 @@
 name: PR Check
 
-on: [push] # pull_request
+on: [pull_request]
 
 jobs:
   test:
@@ -18,7 +18,7 @@ jobs:
           STYRA_CLI_URL: https://anders.svc.styra.com/v1/docs/bin/linux/amd64/styra
 
       - name: Run tests
-        run: styra validate tests c2757209d83249fd9c7a578e9632b4f8 --branch ${{ github.head_ref }}
-
-      # # - name: Run tests
-      # #   run: 
+        run: styra validate tests c2757209d83249fd9c7a578e9632b4f8 --discover --branch ${{ github.head_ref }}
+        env:
+          STYRA_ORGANIZATION_ID: anders.svc.styra.com
+          STYRA_TOKEN: ${{ secrets.STYRA_API_TOKEN }}
